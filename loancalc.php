@@ -10,9 +10,10 @@ if (!defined('ABSPATH')) {
 
 class LoanCalc
 {
-  public function __construct()
+  public function registering()
   {
     add_action('init', [$this, 'custom_type']);
+    add_action('admin_enqueue_scripts', [$this, 'enqueue_admin']);
   }
 
   static function activation()
@@ -26,6 +27,11 @@ class LoanCalc
     flush_rewrite_rules();
   }
 
+  public function enqueue_admin()
+  {
+    wp_enqueue_style('loancalcStyle', plugins_url('/assets/admin/style.css', __FILE__));
+    wp_enqueue_script('loancalcScripts', plugins_url('/assets/admin/script.js', __FILE__));
+  }
 
   public function custom_type()
   {
@@ -39,6 +45,7 @@ class LoanCalc
 
 if (class_exists('LoanCalc')) {
   $loan_calc = new LoanCalc();
+  $loan_calc->registering();
 }
 
 register_activation_hook(__FILE__, array($loan_calc, 'activation'));
