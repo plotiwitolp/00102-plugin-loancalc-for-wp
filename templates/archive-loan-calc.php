@@ -9,7 +9,7 @@ $options = get_option('loancalc_settings_options');
     <?php if (isset($options['title_for_loancalc_params'])) {
         echo '<h1>' . $options['title_for_loancalc_params'] . '</h1>';
     } ?>
-
+    <!-- test -->
     <?php
     if (have_posts()) {
         while (have_posts()) {
